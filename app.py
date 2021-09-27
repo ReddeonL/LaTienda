@@ -25,13 +25,33 @@ def get_home():
 def sign_up():
     return 'Esta es la pagina de registro'
 
-@app.route('/room')
-def enter_room():
-    return 'Esta es la pagina de una sala'
+@app.route('/logout')
+def log_out():
+    return 'Esta es la pagina de logout'
+
+@app.route('/gastos')
+def gastos_room():
+    return 'Esta es la pagina de gastos de la tienda'
+
+@app.route('/inventario')
+def inventario():
+    return 'Esta es la pagina de inventario'
+
+@app.route('/factura')
+def factura():
+    return 'Esta es la pagina de resumen de compra'
+
+@app.route('/estadisticos')
+def estadisticos():
+    return 'Esta es la pagina de estadisticos y resumen de datos'
+
+@app.route('/administrador')
+def administrador():
+    return 'Esta es la pagina de administrador'
 
 
 # Rutas de otras acciones
-@app.route('/song', methods=['GET','POST'])
+@app.route('/producto', methods=['GET','POST'])
 def crud_song():
     if request.method == 'GET':
         # Hago algo
