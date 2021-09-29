@@ -10,7 +10,7 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-from models import Song
+from models import Product
 
 # Crear el esquema de la DB
 db.create_all()
@@ -24,10 +24,6 @@ def get_home():
 @app.route('/signup')
 def sign_up():
     return 'Esta es la pagina de registro'
-
-@app.route('/logout')
-def log_out():
-    return 'Esta es la pagina de logout'
 
 @app.route('/gastos')
 def gastos_room():
@@ -122,3 +118,5 @@ def post_req():
     return "Post success"
 
 '''
+if __name__ == "__main__":
+    app.run()
