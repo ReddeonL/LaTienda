@@ -44,4 +44,4 @@ def administrador():
     return 'Esta es la pagina de administrador' """  
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
