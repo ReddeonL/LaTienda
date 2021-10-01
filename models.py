@@ -1,4 +1,4 @@
-from app import db
+from servidor import db
 
 # Tabla Song
 class Product(db.Model):
@@ -9,27 +9,53 @@ class Product(db.Model):
     description = db.Column(db.String)
     price_buying = db.Column(db.Float)
     Category = db.Column(db.String)
-    id_lote = db.Column(db.Integer, primary_key=True)
-    link = db.Column(db.String, unique=True)
+    lote = db.Column(db.ForeignKey("Lote.due_date"))
+    price_sale = db.Column(db.Float)
+    amount = db.Column(db.String)
 
-    def __init__(self, name, artist, genre, album, year, link):
-        self.name = name
-        self.artist = artist
-        self.genre = genre
-        self.album = album
-        self.year = year
-        self.link = link
+    def __init__(self, id, name, description, price_buying, category, price_sale,amount):
+        self.id = id
+        self.name= name
+        self.description = description
+        self.price_buying = price_buying
+        self.Category = category
+        self.price_sale = price_sale
+        self.amount=amount
 
 class User(db.Model):
     __tablename__ = 'User'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_user = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
 
-class FavoriteSong(db.Model):
-    __tablename__ = 'FavoriteSong'
+class Admin(db.Model):
+    __tablename__ = 'Admin'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.ForeignKey("User.id"))
-    song_id = db.Column(db.ForeignKey("Song.id"))
+    id_admin = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    email_admin = db.Column(db.String, unique=True)
+    password_admin = db.Column(db.String)
+class Lote(db.Model):
+    __tablename__='Lote'
+    id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    due_date =db.Column(db.DateTime)
+    amount = db.Column(db.ForeignKey("Product.amount"))
+class Sold(db.Model):
+    __tablename__='Venta'
+
+    id_venta=db.Column(db.Integer, primary_key=True, autoincrement=True)
+    sold_date=db.Column(db.DateTime)
+    id_product=db.Column(db.ForeignKey("Product.id"))
+    discount=db.Column(db.Float)
+    id_factura=db.Column(db.Integer)
+    amount_sold=db.Column(db.Integer)
+class Factura(db.Model):
+    __tablename__='Factura'
+    id_factura=db.Column(db.ForeignKey("Sold.id_venta"))
+    id_product=db.Column(db.ForeignKey("Product.id"))
+    precio_venta=db.Column(db.ForeignKey("Product.price_sale"))
+    taxes=db.Column(db.Float)
+    total=db.Column(db.Float)
+    amount_sold=db.Column(db.ForeignKey("Sold.amount_sold"))
+    discount=db.Column(db.ForeignKey("Sold.discount"))
+    fecha_venta=db.Column(db.ForeignKey("Sold.sold_date"))
