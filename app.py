@@ -1,41 +1,42 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 # 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>
-"""app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/rockoladb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/rockoladb'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://bgnwmbqjrsccns:61ecfc1393e4972635f3d29a4d8255d241334ef82b9fb95b73ae0ec92ab58897@ec2-34-197-135-44.compute-1.amazonaws.com:5432/dbboljujdiv748'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'some-secret-key'"""
 
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 # Importar los modelos
 from models import Product
 
 # Crear el esquema de la DB
-"""db.create_all()
-db.session.commit()"""
+db.create_all()
+db.session.commit()
 
 # Rutas de paginas
 @app.route('/')
 def get_home():
-    return 'Este es el home'
+    return render_template("home.html")
 
 @app.route('/signup')
 def sign_up():
-    return 'Esta es la pagina de registro'
+    return render_template("signup.html")
 
 @app.route('/gastos')
 def gastos_room():
-    return 'Esta es la pagina de gastos de la tienda'
+    return render_template("gastos.html")
 
 @app.route('/inventario')
 def inventario():
-    return 'Esta es la pagina de inventario'
+    return render_template("inventario.html")
 
 @app.route('/factura')
 def factura():
-    return 'Esta es la pagina de resumen de compra'
+    return render_template("factura.html")
 
 @app.route('/estadisticos')
 def estadisticos():
@@ -48,7 +49,7 @@ def administrador():
 
 # Rutas de otras acciones
 @app.route('/producto', methods=['GET','POST'])
-def crud_song():
+def crud_producto():
     if request.method == 'GET':
         # Hago algo
         print("Llegó un GET")
@@ -61,7 +62,8 @@ def crud_song():
         year = 2017
         link = "https://youtu.be/2Vv-BfVoq4g"
 
-        entry = Song(name,artist,genre,album,year,link)
+        entry =
+         Song(name,artist,genre,album,year,link)
         db.session.add(entry)
         db.session.commit()"""
 
