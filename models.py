@@ -47,11 +47,12 @@ class Lote(db.Model):
     __tablename__='Lote'
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
     due_date =db.Column(db.DateTime)
-    amount = db.Column(db.ForeignKey("Product.amount"))
+    amount = db.Column(db.ForeignKey("Product.amount"))#problema
     def __init__(self,due_date,amount):
 
         self.due_date=due_date
         self.amount=amount
+
 class Sold(db.Model):
     __tablename__='Venta'
 
@@ -65,6 +66,8 @@ class Sold(db.Model):
         self.sold_date=sold_date
         self.discount=discount
         self.amount_sold=amount_sold
+
+
 class Factura(db.Model):
     __tablename__='Factura'
     id_factura=db.Column(db.Integer, primary_key=True, autoincrement=True)

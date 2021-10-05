@@ -2,6 +2,7 @@ from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
 # 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/tiendadb'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://bgnwmbqjrsccns:61ecfc1393e4972635f3d29a4d8255d241334ef82b9fb95b73ae0ec92ab58897@ec2-34-197-135-44.compute-1.amazonaws.com:5432/dbboljujdiv748'
@@ -11,7 +12,7 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-from models import Product, User, Admin, Lote, Sold, Factura
+from models import Product, User#, Admin, Lote, Sold, Factura, 
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
@@ -21,7 +22,7 @@ db.session.commit()
 @app.route('/')
 def get_home():
     return render_template("home.html")
-"""
+
 
 @app.route('/gastos')
 def gastos_room():
@@ -41,7 +42,9 @@ def estadisticos():
 
 @app.route('/administrador')
 def administrador():
-    return 'Esta es la pagina de administrador' """  
+    return 'Esta es la pagina de administrador' 
+
+
 
 if __name__ == "__main__":
     app.run()
