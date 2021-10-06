@@ -31,7 +31,7 @@ def create_user():
     user = User(email, password)
     db.session.add(user)
     db.session.commit()
-    return render_template("inventario.html")
+    return render_template("home.html")
 
 @app.route('/create_product', methods=['POST'])
 def create_product():
@@ -45,7 +45,7 @@ def create_product():
     producto = Product(name, description,pricebuy,category,price_sale,amount)
     db.session.add(producto)
     db.session.commit()
-    
+
     return "registro exitoso"
 
 #para traer info de la base de datos
