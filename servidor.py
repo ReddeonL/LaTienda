@@ -11,7 +11,7 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-#from models import Product, User, Admin, Lote, Sold, Factura
+from models import Product, User, Admin, Lote, Sold, Factura
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
@@ -21,7 +21,41 @@ db.session.commit()
 # Rutas de paginas
 @app.route('/')
 def get_home():
-    return render_template("home.html")
+    return render_template("signup.html")
+
+@app.route('/create-user', methods=['POST'])
+def create_user():
+    email = request.form["email"]
+    password = request.form["password"]
+
+    user = User(email, password)
+    db.session.add(user)
+    db.session.commit()
+    return render_template("inventario.html")
+
+@app.route('/create_product', methods=['POST'])
+def create_product():
+    name = request.form["name"]
+    description = request.form["description"]
+    pricebuy = request.form["price_buying"]
+    category = request.form["category"]
+    price_sale= request.form["price_sale"]
+    amount = request.form["amount"]
+
+    producto = Product(name, description,pricebuy,category,price_sale,amount)
+    db.session.add(producto)
+    db.session.commit()
+    
+    return "registro exitoso"
+
+#para traer info de la base de datos
+"""@app.route('/dbusers', methods=['GET'])
+def create_user():
+    names=User.query.all() 
+    for r in names:
+        print(r.email)"""
+
+
 """
 
 @app.route('/gastos')

@@ -1,15 +1,15 @@
 from servidor import db
 
 # Tabla Song
-"""class Product(db.Model):
+class Product(db.Model):
     __tablename__ = 'Product'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
     description = db.Column(db.String)
     price_buying = db.Column(db.Float)
-    Category = db.Column(db.String)
-   # lote = db.Column(db.ForeignKey("Lote.due_date"))
+    category = db.Column(db.String)
+    #lote = db.Column(db.ForeignKey("Lote.due_date"))
     price_sale = db.Column(db.Float)
     amount = db.Column(db.String)
 
@@ -47,7 +47,7 @@ class Lote(db.Model):
     __tablename__='Lote'
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
     due_date =db.Column(db.DateTime)
-   # amount = db.Column(db.ForeignKey("Product.amount"))
+    #amount = db.Column(db.ForeignKey("Product.amount"))
     def __init__(self,due_date,amount):
 
         self.due_date=due_date
@@ -77,4 +77,4 @@ class Factura(db.Model):
     #fecha_venta=db.Column(db.ForeignKey("Sold.sold_date"))
     def __init__(self,taxes,total):
         self.taxes=taxes
-        self.total=total"""
+        self.total=total
