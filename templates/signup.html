@@ -16,8 +16,22 @@
     </style>
 </head>
 <body>
+
+
     <h1 class="center">La tienda</h1>
     <h2 class="center">Inicio de sesion</h2>
+
+    <!-- Aqui haré una lista desplegable -->
+    <div class="center">
+    <label for="Perfil">Escoja su perfil</label>   
+    <select name="perfil">
+        <option disabled="">Selecciona una opcion</option>
+        <option value="ADMIN">Administrador</option>
+        <option value="OWNER">Propietario</option>
+        <option value="SUPPORT">Soporte</option>
+    </select> 
+    </div>
+
     <form action="{{url_for('create_user')}}"method="post">
     <div class="center">
         <input type="email" name="email" placeholder="Your email">
