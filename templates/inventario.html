@@ -4,58 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
-    <style>
-        .center {
-            text-align: center;
-        }
-        body {
-    background-color: lightblue;
-        }
-        
-    </style>
-
 </head>
 <body>
-    <h1 class="center">Inventario</h1>
-    <div class="center">
-    <form action="{{url_for('create_product')}}"method="post">
-        <div>
-            <input type="text" name="name" placeholder="nombre del producto">
-        </div>
-        <div>
-            <input type="text" name="description" placeholder="descripción del producto">
-        </div>
-        <div>
-            <input type="number" name="price_buying" placeholder="precio de compra">
-        </div>
-        
-        <div>
-            <div>
-                <input type="text" name="category" placeholder="categoria">
-            </div>
-            <!---
-            <select name="category" id="">
-                <option value="0">elige una categoria de tu tienda</option>
-                <option value="ferreteria">ferreteria</option>
-                <option value="miscelanea">miscelanea</option>
-                <option value="abarrotes">abarrotes</option>
-                <option value="moda">moda-ropa</option>               
-
-            </select>
-        -->
-        <div>
-            <input type="text" name="price_sale" placeholder="precio de venta">
-        </div>    
-        </div>
-        <div>
-            <input type="number" name="amount" placeholder="cantidad">
-        </div>
-        <div >
-            <button >registrar producto</button>
-        </div>
-        </form>
-    </div>
+    
 </body>
 </html>

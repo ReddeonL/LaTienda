@@ -31,7 +31,18 @@ def create_user():
     user = User(email, password)
     db.session.add(user)
     db.session.commit()
-    return render_template("inventario.html")
+    return render_template("login.html")
+@app.route('/verify_user',methods=['POST'])
+def verify_user():
+    request_info=request.form
+    email=request_info["Email"]
+    password=request_info["Contraseña"]
+    user=User.query.filter(User.password==password,User.email==email)
+    try:
+        if(user[0] is not None):
+            return render_template("home.html")
+    except:
+        return render_template("login.html")
 
 @app.route('/create_product', methods=['POST'])
 def create_product():
@@ -45,7 +56,7 @@ def create_product():
     producto = Product(name, description,pricebuy,category,price_sale,amount)
     db.session.add(producto)
     db.session.commit()
-    
+
     return "registro exitoso"
 
 #para traer info de la base de datos
