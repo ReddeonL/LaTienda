@@ -78,3 +78,15 @@ class Factura(db.Model):
     def __init__(self,taxes,total):
         self.taxes=taxes
         self.total=total
+class Gastos(db.Model):
+    __tablename__='Gastos'
+    id_gasto=db.Column(db.Integer, primary_key=True,autoincrement=True)
+    #price_buy=db.Column(db.ForeignKey("Product.price_buying"))
+    #amount=db.Column(db.ForeignKey("Product.amount"))
+    storagecost=db.Column(db.Float)
+    servicecost=db.Column(db.Float)
+    admincost=db.Column(db.Float)
+    def  __init__(self,storagecost,servicecost,admincost):
+        self.storagecost=storagecost
+        self.servicecost=servicecost
+        self.admincost=admincost
