@@ -11,7 +11,7 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-from models import Product, User, Admin, Lote, Sold, Factura
+from models import Product, User, Admin, Lote, Sold, Factura, Gastos
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
@@ -88,6 +88,28 @@ def estadisticos():
 @app.route('/administrador')
 def administrador():
     return 'Esta es la pagina de administrador' """  
+
+@app.route('/save-spents', methods=['GET','POST'])
+def save_spents():
+    storagecost = request.form["storagecost"]
+    servicecost = request.form["servicecost"]
+    admincost = request.form["admincost"]
+    others = request.form["others"]
+    date = request.form["date"]
+
+    gastos = Gastos(storagecost, servicecost, admincost, others, date)
+    db.session.add(gastos)
+    db.session.commit()
+    return "Esta es la prueba"
+    # render_template("TablaGastos.html")
+
+
+@app.route('/signupp')
+def sign_up():
+    return 'Esta es una pagina de prueba'
+
+
+
 
 if __name__ == "__main__":
     app.run()
