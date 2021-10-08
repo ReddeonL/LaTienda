@@ -78,10 +78,8 @@ class Factura(db.Model):
     #fecha_venta=db.Column(db.ForeignKey("Sold.sold_date"))
     def __init__(self,taxes,total):
         self.taxes=taxes
-<<<<<<< HEAD
         self.total=total
-=======
-        self.total=total
+
 
 class Gastos(db.Model):
     __tablename__='gastos'
@@ -91,8 +89,8 @@ class Gastos(db.Model):
     storagecost=db.Column(db.Float)
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
-    others=db.column(db.Float)
-    datetime=db.column(db.Datetime)
+    others=db.Column(db.Float)
+    datetime=db.Column(db.DateTime)
     def  __init__(self,storagecost,servicecost,admincost, others, date):
         self.storagecost=storagecost
         self.servicecost=servicecost
@@ -100,4 +98,3 @@ class Gastos(db.Model):
         self.others=others
         self.date = date
 
->>>>>>> develop
