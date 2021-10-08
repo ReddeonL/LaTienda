@@ -38,7 +38,7 @@ def get_forget():
 def get_gastos():
     return render_template("gastos.html")
 @app.route('/factura')
-def get_home():
+def get_factura():
     return render_template("factura.html")
 @app.route('/ventas')
 def get_ventas():
@@ -49,19 +49,22 @@ def inventario():
 @app.route('/resproducto')
 def resproducto():
     return render_template("registroproducto.html")
+@app.route('/homeadmin')
+def homeadmin():
+    return render_template("homeadmin.html")
 
-
+#funciones
+#ccrear usuario
 @app.route('/create_user', methods=["GET",'POST'])
 def create_user():
     email = request.form["email"]
     password = request.form["password"]
-
     user = User(email, password)
     db.session.add(user)
     db.session.commit()
     
     return redirect("login")
-
+#verificacion en login
 @app.route('/verify_user', methods=["GET",'POST'])
 def verify_user():
     
@@ -74,6 +77,19 @@ def verify_user():
             return redirect("home")
     except:
         return redirect("login")
+#verificacion login para el admin
+@app.route('/loginadmin', methods=["GET",'POST'])
+def verify_admin():
+    
+    email=request.form["email"]
+    password=request.form["password"]
+
+    userdb=User.query.filter(User.password==password,User.email==email)
+    try:
+        if(userdb[0] is not None):
+            return redirect("homeadmin")
+    except:
+        return redirect("loginadmin")
 
 @app.route('/create_product', methods=['GET','POST'])
 def create_product():
@@ -81,13 +97,13 @@ def create_product():
     description = request.form["description"]
     pricebuy = request.form["price_buying"]
     category = request.form["category"]
+    lote=request.form["lote"]
     price_sale= request.form["price_sale"]
     amount = request.form["amount"]
 
-    producto = Product(name, description,pricebuy,category,price_sale,amount)
+    producto = Product(name, description,pricebuy,category,lote,price_sale,amount)
     db.session.add(producto)
     db.session.commit()
-
     return redirect("inventario")
 
 
@@ -120,10 +136,6 @@ def create_user():
 
 """
 
-
-@app.route('/factura')
-def factura():
-    return render_template("factura.html")
 
 @app.route('/estadisticos')
 def estadisticos():
