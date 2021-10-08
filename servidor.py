@@ -91,18 +91,22 @@ def estadisticos():
 def administrador():
     return 'Esta es la pagina de administrador' """  
 
-@app.route('/save-spents', methods=['GET','POST'])
+@app.route('/save_spents', methods=['GET','POST'])
 def save_spents():
-    storagecost = request.form["storagecost"]
-    servicecost = request.form["servicecost"]
-    admincost = request.form["admincost"]
-    others = request.form["others"]
-    date = request.form["date"]
+    if request.method == 'POST':
+        storagecost = request.form["storagecost"]
+        servicecost = request.form["servicecost"]
+        admincost = request.form["admincost"]
+        others = request.form["others"]
+        date = request.form["date"]
 
-    gastos = Gastos(storagecost, servicecost, admincost, others, date)
-    db.session.add(gastos)
-    db.session.commit()
-    return "Esta es la prueba"
+        gastos = Gastos(storagecost, servicecost, admincost, others, date)
+        db.session.add(gastos)
+        db.session.commit()
+        return "Esta es la prueba"
+    elif request.method == 'GET':
+        return "Esta es la prueba"
+
     # render_template("TablaGastos.html")
 
 
