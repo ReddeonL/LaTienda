@@ -13,7 +13,7 @@ class Product(db.Model):
     lote = db.Column(db.date,db.ForeignKey("lote.due_date"))
     price_sale = db.Column(db.Float)
     amount = db.Column(db.String)
-    lote = db.relationship("Lote", backref=backref("lote", uselist=False))
+    lote = db.relationship('Lote', backref='lote', uselist=False)
 
     def __init__(self, name, description, price_buying, category,lote, price_sale,amount):
         
@@ -51,7 +51,6 @@ class Lote(db.Model):
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
     due_date =db.Column(db.DateTime)
     amount = db.Column(db.Integer,db.ForeignKey("product.amount"))
-    productss = db.relationship("Product", backref=backref("product", uselist=False))
     def __init__(self,due_date,amount):
 
         self.due_date=due_date

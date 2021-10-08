@@ -11,7 +11,7 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-from models import Gastos, Product, User, Admin, Lote, Sold, Factura
+from models import Gastos, User, Admin, Sold, Factura, Product
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
@@ -20,7 +20,7 @@ db.session.commit()
 
 # Rutas de paginas
 
-@app.route('/login'and'/')
+@app.route('/login')
 def get_login():
     return render_template("login.html")
 @app.route('/home')
@@ -54,16 +54,7 @@ def homeadmin():
     return render_template("homeadmin.html")
 
 #funciones
-#ccrear usuario
-@app.route('/create_user', methods=["GET",'POST'])
-def create_user():
-    email = request.form["email"]
-    password = request.form["password"]
-    user = User(email, password)
-    db.session.add(user)
-    db.session.commit()
-    
-    return redirect("login")
+
 #verificacion en login
 @app.route('/verify_user', methods=["GET",'POST'])
 def verify_user():
@@ -84,12 +75,23 @@ def verify_admin():
     email=request.form["email"]
     password=request.form["password"]
 
-    userdb=User.query.filter(User.password==password,User.email==email)
+    admindb=Admin.query.filter(Admin.password==password,Admin.email==email)
     try:
-        if(userdb[0] is not None):
+        if(admindb[0] is not None):
             return redirect("homeadmin")
     except:
         return redirect("loginadmin")
+
+#ccrear usuario
+@app.route('/create_user', methods=["GET",'POST'])
+def create_user():
+    email = request.form["email"]
+    password = request.form["password"]
+    user = User(email, password)
+    db.session.add(user)
+    db.session.commit()
+    
+    return redirect("login")
 
 @app.route('/create_product', methods=['GET','POST'])
 def create_product():
@@ -105,7 +107,7 @@ def create_product():
     db.session.add(producto)
     db.session.commit()
     return redirect("inventario")
-
+@app.route('')
 
 """
 En la función, por ejemplo:
