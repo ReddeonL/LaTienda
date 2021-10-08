@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from servidor import db
 
 # Tabla Song
@@ -78,19 +79,20 @@ class Factura(db.Model):
     def __init__(self,taxes,total):
         self.taxes=taxes
         self.total=total
+
 class Gastos(db.Model):
-    __tablename__='Gastos'
+    __tablename__='gastos'
     id_gasto=db.Column(db.Integer, primary_key=True,autoincrement=True)
     #price_buy=db.Column(db.ForeignKey("Product.price_buying"))
     #amount=db.Column(db.ForeignKey("Product.amount"))
     storagecost=db.Column(db.Float)
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
-    others=db.Column(db.Float)
-    date=db.Column(db.DateTime)
-    def  __init__(self,storagecost,servicecost,admincost,others,date):
+    others=db.column(db.Float)
+    datetime=db.column(db.Datetime)
+    def  __init__(self,storagecost,servicecost,admincost, others, date):
         self.storagecost=storagecost
         self.servicecost=servicecost
         self.admincost=admincost
         self.others=others
-        self.date=date
+        self.date = date
