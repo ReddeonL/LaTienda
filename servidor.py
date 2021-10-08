@@ -11,7 +11,11 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
+<<<<<<< HEAD
 from models import Product, User, Admin, Lote, Sold, Factura
+=======
+from models import Product, User, Admin, Lote, Sold, Factura, Gastos
+>>>>>>> develop
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
@@ -21,7 +25,52 @@ db.session.commit()
 # Rutas de paginas
 @app.route('/')
 def get_home():
-    return render_template("home.html")
+    return render_template("signup.html")
+
+@app.route('/create-user', methods=['POST'])
+def create_user():
+    email = request.form["email"]
+    password = request.form["password"]
+
+    user = User(email, password)
+    db.session.add(user)
+    db.session.commit()
+    return render_template("login.html")
+@app.route('/verify_user',methods=['POST'])
+def verify_user():
+    request_info=request.form
+    email=request_info["Email"]
+    password=request_info["Contraseña"]
+    user=User.query.filter(User.password==password,User.email==email)
+    try:
+        if(user[0] is not None):
+            return render_template("home.html")
+    except:
+        return render_template("login.html")
+
+@app.route('/create_product', methods=['POST'])
+def create_product():
+    name = request.form["name"]
+    description = request.form["description"]
+    pricebuy = request.form["price_buying"]
+    category = request.form["category"]
+    price_sale= request.form["price_sale"]
+    amount = request.form["amount"]
+
+    producto = Product(name, description,pricebuy,category,price_sale,amount)
+    db.session.add(producto)
+    db.session.commit()
+
+    return "registro exitoso"
+
+#para traer info de la base de datos
+"""@app.route('/dbusers', methods=['GET'])
+def create_user():
+    names=User.query.all() 
+    for r in names:
+        print(r.email)"""
+
+
 """
 
 @app.route('/gastos')
@@ -43,6 +92,28 @@ def estadisticos():
 @app.route('/administrador')
 def administrador():
     return 'Esta es la pagina de administrador' """  
+
+@app.route('/save-spents', methods=['GET','POST'])
+def save_spents():
+    storagecost = request.form["storagecost"]
+    servicecost = request.form["servicecost"]
+    admincost = request.form["admincost"]
+    others = request.form["others"]
+    date = request.form["date"]
+
+    gastos = Gastos(storagecost, servicecost, admincost, others, date)
+    db.session.add(gastos)
+    db.session.commit()
+    return "Esta es la prueba"
+    # render_template("TablaGastos.html")
+
+
+@app.route('/signupp')
+def sign_up():
+    return 'Esta es una pagina de prueba'
+
+
+
 
 if __name__ == "__main__":
     app.run()

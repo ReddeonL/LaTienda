@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from servidor import db
 
 # Tabla Song
@@ -8,8 +9,8 @@ class Product(db.Model):
     name = db.Column(db.String)
     description = db.Column(db.String)
     price_buying = db.Column(db.Float)
-    Category = db.Column(db.String)
-   # lote = db.Column(db.ForeignKey("Lote.due_date"))
+    category = db.Column(db.String)
+    #lote = db.Column(db.ForeignKey("Lote.due_date"))
     price_sale = db.Column(db.Float)
     amount = db.Column(db.String)
 
@@ -47,7 +48,7 @@ class Lote(db.Model):
     __tablename__='Lote'
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
     due_date =db.Column(db.DateTime)
-   # amount = db.Column(db.ForeignKey("Product.amount"))
+    #amount = db.Column(db.ForeignKey("Product.amount"))
     def __init__(self,due_date,amount):
 
         self.due_date=due_date
@@ -77,4 +78,26 @@ class Factura(db.Model):
     #fecha_venta=db.Column(db.ForeignKey("Sold.sold_date"))
     def __init__(self,taxes,total):
         self.taxes=taxes
+<<<<<<< HEAD
         self.total=total
+=======
+        self.total=total
+
+class Gastos(db.Model):
+    __tablename__='gastos'
+    id_gasto=db.Column(db.Integer, primary_key=True,autoincrement=True)
+    #price_buy=db.Column(db.ForeignKey("Product.price_buying"))
+    #amount=db.Column(db.ForeignKey("Product.amount"))
+    storagecost=db.Column(db.Float)
+    servicecost=db.Column(db.Float)
+    admincost=db.Column(db.Float)
+    others=db.column(db.Float)
+    datetime=db.column(db.Datetime)
+    def  __init__(self,storagecost,servicecost,admincost, others, date):
+        self.storagecost=storagecost
+        self.servicecost=servicecost
+        self.admincost=admincost
+        self.others=others
+        self.date = date
+
+>>>>>>> develop
