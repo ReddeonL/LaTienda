@@ -8,5 +8,16 @@
 </head>
 <body>
     
+<table>
+    <tr>
+          <th>Inventario</th>
+    </tr>
+{%  for dato in datos:  %}
+    <tr>
+        <td>{{  dato.name  }}</td>
+    </tr>
+{%  endfor  %}
+</table>
+    
 </body>
 </html>

@@ -1,6 +1,6 @@
 from servidor import db
 
-# Tabla Song
+# Tabla producto
 class Product(db.Model):
     __tablename__ = 'Product'
 
