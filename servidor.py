@@ -11,11 +11,9 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-<<<<<<< HEAD
-from models import Product, User, Admin, Lote, Sold, Factura
-=======
+
 from models import Product, User, Admin, Lote, Sold, Factura, Gastos
->>>>>>> develop
+
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
