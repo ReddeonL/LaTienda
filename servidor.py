@@ -107,7 +107,16 @@ def create_product():
     db.session.add(producto)
     db.session.commit()
     return redirect("inventario")
-@app.route('')
+
+"""@app.route('/delete_product',methods=['GET','POST'])
+def delete_product():
+    named = request.form["name"]
+    productname=Product.query.filter(Product.name==named)
+    
+
+    db.session.delete()
+    db.session.commit()"""
+
 
 """
 En la función, por ejemplo:
@@ -115,18 +124,8 @@ En la función, por ejemplo:
 def mostrarDatos():
     consulta = db.session.query(Product).all()
     return render_template("inventario.html",datos = consulta)
+"""
 
-    
-@app.route('/gastos', methods=['POST'])
-def create_product():
-    storagecost = request.form["storagecost"]
-    description = request.form["description"]
-   
-
-    gastos = Gastos(storagecost, t)
-    db.session.add(gastos)
-    db.session.commit()
-    return redirect(url_for("home.html"))"""
 
 #para traer info de la base de datos
 """@app.route('/dbusers', methods=['GET'])
