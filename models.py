@@ -1,7 +1,7 @@
 from servidor import db
 
 # Tabla Song
-"""class Product(db.Model):
+class Product(db.Model):
     __tablename__ = 'Product'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -77,4 +77,4 @@ class Factura(db.Model):
     #fecha_venta=db.Column(db.ForeignKey("Sold.sold_date"))
     def __init__(self,taxes,total):
         self.taxes=taxes
-        self.total=total"""
+        self.total=total

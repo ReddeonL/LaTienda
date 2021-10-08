@@ -11,7 +11,7 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-#from models import Product, User, Admin, Lote, Sold, Factura
+from models import Product, User, Admin, Lote, Sold, Factura
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
@@ -46,3 +46,25 @@ def administrador():
 
 if __name__ == "__main__":
     app.run()
+
+
+
+#Rutas de metodos
+@app.route('/updatePasswordUser', methods=['POST'])
+def get_vencido():
+
+    request_data = request.form
+    email = request_data['email']
+    newPassword = request_data['newPassword']
+    changeUser = User.query.filter_by(email=email).first()
+    retorno = "Actualización exitosa" 
+
+    if changeUser==None:
+        #aqui se debe poner una alerta en el navegador que diga que el correo no existe
+        retorno = "Fallo de actualización, "  + email + " no existe en la base de datos."
+    else:
+        cp = User.query.filter_by(email="Ramon").first()
+        changeUser.password = newPassword
+        db.session.commit()
+    return retorno
+
