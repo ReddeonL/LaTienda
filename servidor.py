@@ -1,3 +1,4 @@
+from itertools import product
 from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
@@ -11,11 +12,9 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-<<<<<<< HEAD
-from models import Product, User, Admin, Lote, Sold, Factura
-=======
+
 from models import Product, User, Admin, Lote, Sold, Factura, Gastos
->>>>>>> develop
+
 
 # Crear el esquema de la DB
 db.create_all()  #aca me menciona el error
@@ -37,6 +36,7 @@ def create_user():
     db.session.commit()
     return render_template("login.html")
 @app.route('/verify_user',methods=['POST'])
+
 def verify_user():
     request_info=request.form
     email=request_info["Email"]
@@ -93,18 +93,25 @@ def estadisticos():
 def administrador():
     return 'Esta es la pagina de administrador' """  
 
-@app.route('/save-spents', methods=['GET','POST'])
+@app.route('/save_spents', methods=['GET','POST'])
 def save_spents():
-    storagecost = request.form["storagecost"]
-    servicecost = request.form["servicecost"]
-    admincost = request.form["admincost"]
-    others = request.form["others"]
-    date = request.form["date"]
+    if request.method == 'POST':
+        storagecost = request.form["storagecost"]
+        servicecost = request.form["servicecost"]
+        admincost = request.form["admincost"]
+        others = request.form["others"]
+        date = request.form["date"]
+        print("*" + "'" + date + "'" + "*")
+        gastos = Gastos(storagecost, servicecost, admincost, others, "'" + date + "'")
+        db.session.add(gastos)
+        db.session.commit()
 
-    gastos = Gastos(storagecost, servicecost, admincost, others, date)
-    db.session.add(gastos)
-    db.session.commit()
-    return "Esta es la prueba"
+        gastos.date= date
+        db.session.commit()
+        return "Esta es la prueba"
+    elif request.method == 'GET':
+        return "Esta es la prueba"
+
     # render_template("TablaGastos.html")
 
 
@@ -134,8 +141,64 @@ def get_vencido():
         #aqui se debe poner una alerta en el navegador que diga que el correo no existe
         retorno = "Fallo de actualización, "  + email + " no existe en la base de datos."
     else:
-        cp = User.query.filter_by(email="Ramon").first()
         changeUser.password = newPassword
-        db.session.commit()
+        db.session.commit() 
     return retorno
 
+
+@app.route('/facturas', methods=['GET'])
+def get_facturas():
+    id_factura=[]
+    precio_venta=[]
+    taxes=[]
+    total=[]
+    date_factura=[]
+
+    for factura in Factura.query:
+        id_factura.append(str(factura.id_factura))
+        precio_venta.append(str(factura.precio_venta))
+        taxes.append(str(factura.taxes))
+        total.append(str(factura.total))
+        date_factura.append(str(factura.fecha_venta))
+
+
+
+    return render_template("facturas.html", id_factura=id_factura, precio_venta=precio_venta,
+                            taxes=taxes, total=total, date_factura=date_factura)
+
+
+
+#esta ruta y metodo reciben en (?nFactura=" ") el id de la factura para poder facturar
+# El parametro debe recibirse usando el navegador, atraves de la ruta asi /facturar?nFactura=Ejemplo
+@app.route('/facturar', methods=['GET'])
+def get_facturar():
+    id_factura= request.args.get('nFactura',None)
+    factura = Factura.query.filter_by(id_factura=id_factura).first()
+
+    if factura==None:
+        return "Error: Hay un error en el id de la factura!"
+    else:
+
+        precio_venta=factura.precio_venta
+        taxes=factura.taxes
+        total=factura.total
+        fecha_venta=factura.fecha_venta
+        discount=[]
+        amount_sold=[]
+        product_price=[]
+        name_product=[]
+
+        ventas = Sold.query.filter(Sold.id_factura==factura.id_factura)
+        for vent in ventas:
+            discount.append(vent.discount)
+            amount_sold.append(vent.amount_sold)
+            product_price.append(Product.query.filter_by(id=vent.id_product).first().price_sale * vent.amount_sold)
+            name_product.append(Product.query.filter_by(id=vent.id_product).first().name)
+            
+        
+
+        
+        return render_template("facturar.html", id_factura=id_factura, precio_venta=precio_venta,
+                               taxes=taxes, total=total, fecha_venta=fecha_venta,discount=discount,
+                               amount_sold=amount_sold, product_price=product_price, name_product=name_product)
+ 
