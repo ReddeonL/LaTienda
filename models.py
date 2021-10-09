@@ -1,29 +1,33 @@
 from datetime import date, datetime
+from sqlalchemy.orm import backref
 from servidor import db
 
-# Tabla Song
+# Tabla producto
 class Product(db.Model):
-    __tablename__ = 'Product'
+    __tablename__ = 'products'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
     description = db.Column(db.String)
     price_buying = db.Column(db.Float)
     category = db.Column(db.String)
-    lote = db.Column(db.ForeignKey("Lote.id_lote"))
+    lote = db.Column(db.Date)
     price_sale = db.Column(db.Float)
+    amount = db.Column(db.Integer)
+    
 
-    def __init__(self, name, description, price_buying, category, price_sale,amount):
+    def __init__(self, name, description, price_buying, category,lote, price_sale,amount):
         
         self.name= name
         self.description = description
         self.price_buying = price_buying
-        self.Category = category
+        self.category = category
+        self.lote=lote
         self.price_sale = price_sale
         self.amount=amount
 
 class User(db.Model):
-    __tablename__ = 'User'
+    __tablename__ = 'user'
 
     id_user = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String, unique=True)
@@ -34,7 +38,7 @@ class User(db.Model):
         self.password=password
 
 class Admin(db.Model):
-    __tablename__ = 'Admin'
+    __tablename__ = 'admin'
 
     id_admin = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email_admin = db.Column(db.String, unique=True)
@@ -44,7 +48,7 @@ class Admin(db.Model):
         self.password_admin=password_admin
         
 class Lote(db.Model):
-    __tablename__='Lote'
+    __tablename__='lote'
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
     due_date =db.Column(db.Date)
     amount = db.Column(db.Integer)
@@ -55,12 +59,13 @@ class Lote(db.Model):
 
 
 class Sold(db.Model):
-    __tablename__='Venta'
+    __tablename__='venta'
 
     id_venta=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id_product=db.Column(db.ForeignKey("Product.id"))
+    sold_date=db.Column(db.DateTime)
+    id_product=db.Column(db.ForeignKey("products.id"))
     discount=db.Column(db.Float)
-    id_factura=db.Column(db.ForeignKey("Factura.id_factura"))
+    #id_factura=db.Column(db.ForeignKey("factura.id_factura"))
     amount_sold=db.Column(db.Integer)
     def __init__(self,sold_date,discount,amount_sold):
         self.sold_date=sold_date
@@ -68,7 +73,7 @@ class Sold(db.Model):
         self.amount_sold=amount_sold
 
 class Factura(db.Model):
-    __tablename__='Factura'
+    __tablename__='factura'
     id_factura=db.Column(db.Integer, primary_key=True, autoincrement=True)
     precio_venta=db.Column(db.Float)
     taxes=db.Column(db.Float)
@@ -84,8 +89,8 @@ class Factura(db.Model):
 class Gastos(db.Model):
     __tablename__='Gastos'
     id_gasto=db.Column(db.Integer, primary_key=True,autoincrement=True)
-    #price_buy=db.Column(db.ForeignKey("Product.price_buying"))
-    #amount=db.Column(db.ForeignKey("Product.amount"))
+    price_buy=db.Column(db.ForeignKey("product.price_buying"))
+    amount=db.Column(db.ForeignKey("product.amount"))
     storagecost=db.Column(db.Float)
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
@@ -96,4 +101,4 @@ class Gastos(db.Model):
         self.servicecost=servicecost
         self.admincost=admincost
         self.others=others
-        self.date = date
+        self.datetime = datetime

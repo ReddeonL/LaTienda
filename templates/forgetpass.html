@@ -17,17 +17,15 @@
 </head>
 <body>
     <h1 class="center">La tienda</h1>
-    <h2 class="center">Registro</h2>
-    <form action="{{url_for('forget_pass')}}"method="post">
+    <h2 class="center">olvido su contraseña</h2>
+    <form action="{{url_for('get_vencido')}}"method="post">
     <div class="center">
         <input type="email" name="email" placeholder="ingrese su email">
     </div>
     <div class="center">
-        <input type="password" name="password" placeholder="nuevo password">
+        <input type="password" name="newPassword" placeholder="nuevo password">
     </div>
-    <div class="center">
-        <input type="password" name="password" placeholder="nuevo password">
-    </div>
+    
     <div class="center">
         <button>ingreso</button>
     </div>
