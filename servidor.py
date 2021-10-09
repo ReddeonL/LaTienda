@@ -44,9 +44,9 @@ def get_forget():
 @app.route('/gastos')
 def get_gastos():
     return render_template("gastos.html")
-@app.route('/factura')
+@app.route('/facturas')
 def get_factura():
-    return render_template("factura.html")
+    return render_template("facturas.html")
 @app.route('/ventas')
 def get_ventas():
     return render_template("ventas.html")
@@ -101,18 +101,6 @@ def create_user():
     db.session.add(user)
     db.session.commit()
     return redirect("login")
-@app.route('/verify_user',methods=['POST'])
-
-def verify_user():
-    request_info=request.form
-    email=request_info["Email"]
-    password=request_info["Contraseña"]
-    user=User.query.filter(User.password==password,User.email==email)
-    try:
-        if(user[0] is not None):
-            return render_template("home.html")
-    except:
-        return render_template("login.html")
 
 @app.route('/create_product', methods=['GET','POST'])
 def create_product():

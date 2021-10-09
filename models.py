@@ -87,16 +87,16 @@ class Factura(db.Model):
 
 
 class Gastos(db.Model):
-    __tablename__='Gastos'
+    __tablename__='gastos'
     id_gasto=db.Column(db.Integer, primary_key=True,autoincrement=True)
-    price_buy=db.Column(db.ForeignKey("product.price_buying"))
-    amount=db.Column(db.ForeignKey("product.amount"))
+    price_buy=db.Column(db.ForeignKey("products.price_buying"))
+    amount=db.Column(db.ForeignKey("products.amount"))
     storagecost=db.Column(db.Float)
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
     others=db.Column(db.Float)
     datetime=db.Column(db.Date)
-    def  __init__(self,storagecost,servicecost,admincost, others, date):
+    def  __init__(self,storagecost,servicecost,admincost, others, datetime):
         self.storagecost=storagecost
         self.servicecost=servicecost
         self.admincost=admincost
