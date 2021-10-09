@@ -241,3 +241,5 @@ def get_facturar():
                                taxes=taxes, total=total, fecha_venta=fecha_venta,discount=discount,
                                amount_sold=amount_sold, product_price=product_price, name_product=name_product)
  
+if __name__ == "__main__":
+    app.run(debug=True)
