@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>InicioLatienda</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         .center {
             text-align: center;
-            text-size-adjust: 12;
         }
         body {
     background-color: lightblue;
@@ -17,26 +16,22 @@
     </style>
 </head>
 <body>
-    <div>
-        
-        <div class="center">
-            <h1>inicio</h1>
-            <a href="/resproducto">registrar un producto</a>
-            <br>
-            <a href="/inventario">ir a inventario</a>
-            <br>
-            <a href="/gastos">ver mis gastos</a>
-            <br>
-            <a href="/ventas">registrar ventas</a>
-            <br>
-            <a href="/factura">ver facturas</a>
-            <br>
-            <a href="/login">salir</a>
-           
-
-        </div>
-        
-    </div>    
+    <h1 class="center">La tienda</h1>
+    <h2 class="center">Registro</h2>
+    <form action="{{url_for('forget_pass')}}"method="post">
+    <div class="center">
+        <input type="email" name="email" placeholder="ingrese su email">
+    </div>
+    <div class="center">
+        <input type="password" name="password" placeholder="nuevo password">
+    </div>
+    <div class="center">
+        <input type="password" name="password" placeholder="nuevo password">
+    </div>
+    <div class="center">
+        <button>ingreso</button>
+    </div>
+    </form>
     
 </body>
 </html>

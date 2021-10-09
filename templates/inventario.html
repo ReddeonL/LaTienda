@@ -4,14 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
     <style>
-        
+        table, th, td {
+          border:1px solid black;
+        }
+        .center {
+            text-align: center;
+        }
+        body {
+    background-color: lightblue;
+        }
     </style>
-
 </head>
 <body>
-    
+ <div class="center">  
+ <form action="/mostrar_datos" method="get">
+<table>
+    <tr>
+          <th>Inventario</th>
+    </tr>
+    <tr>
+        <td>nombre</td>
+        <td>descripcion</td>
+        <td>precio de compra</td>
+        <td>categoria</td>
+        <td>precio de venta</td>
+    </tr>
+        {%  for dato in datos:  %}
+    <tr>
+        <td>{{  dato.name  }}</td>
+        <td>{{dato.description}}</td>
+        <td>{{dato.pricebuy}}</td>
+        <td>{{dato.category}}</td>
+        <td>{{dato.price_sale}}</td>
+        <td>{{dato.amount}}</td>
+    </tr>
+{%  endfor  %}
+</table>
+</div>
+<div class="center">
+    <a href="/home">regresar</a>
+
+</form>
+</div>
+
 </body>
 </html>
