@@ -105,19 +105,29 @@ def create_product():
     description = request.form["description"]
     pricebuy = request.form["price_buying"]
     category = request.form["category"]
-   # lote=request.form["lote"]
+    lote=request.form["lote"]
     price_sale= request.form["price_sale"]
     amount = request.form["amount"]
 
-    producto = Product(name, description,pricebuy,category,price_sale,amount)
+    producto = Product(name, description,pricebuy,category,lote,price_sale,amount)
     db.session.add(producto)
     db.session.commit()
     return redirect("inventario")
 
-@app.route("/mostrar_datos")
+@app.route("/mostrar_datos", methods=["GET",'POST'])
 def mostrarDatos():
     consulta = db.session.query(Product).all()
     return render_template("inventario.html",datos = consulta)
+
+@app.route('/delete_product', methods=["GET",'POST'])
+def verify_product():
+    
+    name=request.form["name"]
+    productdb=Product.query.filter(Product.name==name)
+    db.session.delete(productdb)
+    db.session.commit()
+    return redirect("inventario")
+    
 
 """@app.route('/delete_product',methods=['GET','POST'])
 def delete_product():
@@ -170,11 +180,6 @@ def save_spents():
     db.session.commit()
     return "Esta es la prueba"
     # render_template("TablaGastos.html")
-
-
-@app.route('/signupp')
-def sign_up():
-    return 'Esta es una pagina de prueba'
 
 
 #Rutas de metodos

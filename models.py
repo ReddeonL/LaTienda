@@ -4,25 +4,25 @@ from servidor import db
 
 # Tabla producto
 class Product(db.Model):
-    __tablename__ = 'product'
+    __tablename__ = 'products'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
     description = db.Column(db.String)
     price_buying = db.Column(db.Float)
     category = db.Column(db.String)
-   # lote = db.Column(db.String)
+    lote = db.Column(db.Date)
     price_sale = db.Column(db.Float)
     amount = db.Column(db.Integer)
     #lotes = db.relationship('Lote', backref='product', uselist=False)
 
-    def __init__(self, name, description, price_buying, category, price_sale,amount):
+    def __init__(self, name, description, price_buying, category,lote, price_sale,amount):
         
         self.name= name
         self.description = description
         self.price_buying = price_buying
         self.category = category
-        #self.lote=lote
+        self.lote=lote
         self.price_sale = price_sale
         self.amount=amount
 
@@ -50,8 +50,8 @@ class Admin(db.Model):
 class Lote(db.Model):
     __tablename__='lote'
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    due_date =db.Column(db.DateTime)
-    amount = db.Column(db.Integer,db.ForeignKey("product.amount"))
+    due_date =db.Column(db.Date)
+    amount = db.Column(db.ForeignKey("products.amount"))
     def __init__(self,due_date,amount):
 
         self.due_date=due_date
@@ -92,7 +92,7 @@ class Gastos(db.Model):
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
     others=db.Column(db.Float)
-    datetime=db.Column(db.String)
+    datetime=db.Column(db.Date)
     def  __init__(self,storagecost,servicecost,admincost, others, datetime):
         self.storagecost=storagecost
         self.servicecost=servicecost
