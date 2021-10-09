@@ -19,7 +19,7 @@
 </head>
 <body>
  <div class="center">  
- 
+ <h1>inventario</h1>
 <table>
     <tr>
           <th>Inventario</th>
@@ -32,6 +32,7 @@
         <td>categoria</td>
         <td>lote</td>
         <td>precio de venta</td>
+        <td>cantidad</td>
     </tr>
         {%  for dato in datos:  %}
     <tr>
@@ -49,10 +50,10 @@
 </div>
 
 <div>
-    <h1>digite el id correspondiente para eliminar</h1>
+    <h3>digite el nombre correspondiente para eliminar</h3>
     <form action="{{url_for('del_product')}}" method="post">
         <div>
-            <input type="number" storagecost="id" placeholder="id">
+            <input type="text" storagecost="name" placeholder="nombre">
         </div>
         <div >
             <button >eliminar </button>

@@ -18,18 +18,19 @@
 <body>
     <h1 class="center">La tienda</h1>
     <h2 class="center">Administrador</h2>
-    <form action="{{url_for('loginadmin')}}"method="get">
+    
+
+    <form action="{{url_for('verify_admin')}}"method="get">
     <div class="center">
-        <input type="text" name="email" placeholder="Your email">
+        <input type="text" name="email_admin" placeholder="Your email">
     </div>
     <div class="center">
-        <input type="password" name="password" placeholder="Your password">
+        <input type="password" name="password_admin" placeholder="Your password">
     </div>
     <div class="center">
         <button>Submit</button>
     </div>
-    </form>
-    
+    </form> 
     
 </body>
 </html>

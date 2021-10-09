@@ -5,9 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+        .center {
+            text-align: center;
+        }
+        body {
+    background-color: lightblue;
+        }
+    </style>
+
 </head>
 <body>
-    <h1>Usuarios</h1>
-    <h1>Contraseñas</h1>
+    <h1>usuarios</h1>
+
+    <div class="center">  
+        <h1>inventario de usuarios</h1>
+       <table>
+           <tr>
+                 <th>usuarios</th>
+           </tr>
+           <tr>
+                <td>id</td>
+               <td>correo</td>
+               <td>contraseña</td>
+               
+           </tr>
+               {%  for dato in datos:  %}
+           <tr>
+               <td>{{dato.id_admin}}</td>
+               <td>{{  dato.email_admin }}</td>
+               <td>{{dato.password_admin}}</td>
+               
+           </tr>
+       {%  endfor  %}
+       </table>
+       </div>
+       
+       <div>
+           <h3>digite el nombre correspondiente para eliminar</h3>
+           <form action="{{url_for('del_user')}}" method="post">
+               <div>
+                   <input type="text" storagecost="email" placeholder="email">
+               </div>
+               <div >
+                   <button >eliminar </button>
+               </div>
+           
+           </form>
+       </div>
+       
+       <div class="center">
+           <a href="/admin">regresar</a>
+       
 </body>
 </html>

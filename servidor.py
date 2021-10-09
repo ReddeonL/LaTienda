@@ -59,9 +59,9 @@ def inventario():
 @app.route('/resproducto')
 def resproducto():
     return render_template("registroproducto.html")
-@app.route('/homeadmin')
+@app.route('/admin')
 def homeadmin():
-    return render_template("homeadmin.html")
+    return render_template("admin.html")
 
 #funciones
 
@@ -78,19 +78,36 @@ def verify_user():
             return redirect("home")
     except:
         return redirect("login")
+
+#creacion de admin
+    admins=Admin(email_admin="chucho",password_admin="6666")
+    db.session.add(admins)
+    db.session.commit()     
 #verificacion login para el admin
 @app.route('/loginadmin', methods=["GET",'POST'])
 def verify_admin():
-    
-    email=request.form["email"]
-    password=request.form["password"]
-
+    email=request.form["email_admin"]
+    password=request.form["password_admin"]    
     admindb=Admin.query.filter(Admin.password==password,Admin.email==email)
     try:
         if(admindb[0] is not None):
             return redirect("homeadmin")
     except:
         return redirect("loginadmin")
+#ver tabla de usuarios modo admin
+@app.route('/homeadmin')
+def tablausuarios():
+    consultau = db.session.query(Admin).all()
+    print(consultau)
+    return render_template("homeadmin.html",datos = consultau)
+@app.route('/deleteuser', methods=["GET",'POST'])
+def del_user():
+    requestdata=request.form
+    name=requestdata["name"]
+    productdb=Product.query.filter_by(name=name).first()
+    db.session.delete(productdb)
+    db.session.commit()
+    return redirect("home")
 
 #ccrear usuario
 @app.route('/create_user', methods=["GET",'POST'])
@@ -117,21 +134,14 @@ def create_product():
     db.session.commit()
     return redirect("inventario")
 
-#@app.route("/mostrar_datos", methods=["GET",'POST'])
-
-
 @app.route('/deleteproduct', methods=["GET",'POST'])
 def del_product():
     requestdata=request.form
     name=requestdata["name"]
-    productdb=Product.query.filter(name==name)
+    productdb=Product.query.filter_by(name=name).first()
     db.session.delete(productdb)
     db.session.commit()
     return redirect("home")
-    
-
-#para traer info de la base de datos
-
 
 """
 @app.route('/estadisticos')
@@ -162,7 +172,6 @@ def save_spents():
         return "Esta es la prueba"
 
     # render_template("TablaGastos.html")
-
 
 #Rutas de metodos
 @app.route('/updatePasswordUser', methods=['POST'])
@@ -198,12 +207,8 @@ def get_facturas():
         total.append(str(factura.total))
         date_factura.append(str(factura.fecha_venta))
 
-
-
     return render_template("facturas.html", id_factura=id_factura, precio_venta=precio_venta,
                             taxes=taxes, total=total, date_factura=date_factura)
-
-
 
 #esta ruta y metodo reciben en (?nFactura=" ") el id de la factura para poder facturar
 # El parametro debe recibirse usando el navegador, atraves de la ruta asi /facturar?nFactura=Ejemplo
@@ -231,9 +236,6 @@ def get_facturar():
             amount_sold.append(vent.amount_sold)
             product_price.append(Product.query.filter_by(id=vent.id_product).first().price_sale * vent.amount_sold)
             name_product.append(Product.query.filter_by(id=vent.id_product).first().name)
-            
-        
-
         
         return render_template("facturar.html", id_factura=id_factura, precio_venta=precio_venta,
                                taxes=taxes, total=total, fecha_venta=fecha_venta,discount=discount,
