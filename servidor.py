@@ -1,6 +1,7 @@
 from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 # 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/tiendadb'
@@ -14,12 +15,14 @@ db = SQLAlchemy(app)
 from models import Gastos, User, Admin, Sold, Factura, Product
 
 # Crear el esquema de la DB
-db.create_all()  #aca me menciona el error
+db.create_all()  
 db.session.commit()
 
 
 # Rutas de paginas
-
+@app.route('/')
+def inicio():
+    return redirect('login')
 @app.route('/login')
 def get_login():
     return render_template("login.html")
@@ -99,14 +102,19 @@ def create_product():
     description = request.form["description"]
     pricebuy = request.form["price_buying"]
     category = request.form["category"]
-    lote=request.form["lote"]
+   # lote=request.form["lote"]
     price_sale= request.form["price_sale"]
     amount = request.form["amount"]
 
-    producto = Product(name, description,pricebuy,category,lote,price_sale,amount)
+    producto = Product(name, description,pricebuy,category,price_sale,amount)
     db.session.add(producto)
     db.session.commit()
     return redirect("inventario")
+
+@app.route("/mostrar_datos")
+def mostrarDatos():
+    consulta = db.session.query(Product).all()
+    return render_template("inventario.html",datos = consulta)
 
 """@app.route('/delete_product',methods=['GET','POST'])
 def delete_product():

@@ -10,18 +10,18 @@ class Product(db.Model):
     description = db.Column(db.String)
     price_buying = db.Column(db.Float)
     category = db.Column(db.String)
-    lote = db.Column(db.DateTime,db.ForeignKey("lote.due_date"))
+   # lote = db.Column(db.String)
     price_sale = db.Column(db.Float)
-    amount = db.Column(db.String)
-    lotes = db.relationship('Lote', backref='product', uselist=False)
+    amount = db.Column(db.Integer)
+    #lotes = db.relationship('Lote', backref='product', uselist=False)
 
-    def __init__(self, name, description, price_buying, category,lote, price_sale,amount):
+    def __init__(self, name, description, price_buying, category, price_sale,amount):
         
         self.name= name
         self.description = description
         self.price_buying = price_buying
         self.category = category
-        self.lote=lote
+        #self.lote=lote
         self.price_sale = price_sale
         self.amount=amount
 
