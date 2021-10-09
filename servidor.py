@@ -1,5 +1,6 @@
 from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import date, datetime
 
 
 app = Flask(__name__)
@@ -12,7 +13,9 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-from models import Gastos, User, Admin, Sold, Factura, Product
+
+from models import Product, User, Admin, Lote, Sold, Factura, Gastos
+
 
 # Crear el esquema de la DB
 db.create_all()  
@@ -102,19 +105,29 @@ def create_product():
     description = request.form["description"]
     pricebuy = request.form["price_buying"]
     category = request.form["category"]
-   # lote=request.form["lote"]
+    lote=request.form["lote"]
     price_sale= request.form["price_sale"]
     amount = request.form["amount"]
 
-    producto = Product(name, description,pricebuy,category,price_sale,amount)
+    producto = Product(name, description,pricebuy,category,lote,price_sale,amount)
     db.session.add(producto)
     db.session.commit()
     return redirect("inventario")
 
-@app.route("/mostrar_datos")
+@app.route("/mostrar_datos", methods=["GET",'POST'])
 def mostrarDatos():
     consulta = db.session.query(Product).all()
     return render_template("inventario.html",datos = consulta)
+
+@app.route('/delete_product', methods=["GET",'POST'])
+def verify_product():
+    
+    name=request.form["name"]
+    productdb=Product.query.filter(Product.name==name)
+    db.session.delete(productdb)
+    db.session.commit()
+    return redirect("inventario")
+    
 
 """@app.route('/delete_product',methods=['GET','POST'])
 def delete_product():
@@ -153,6 +166,40 @@ def estadisticos():
 @app.route('/administrador')
 def administrador():
     return 'Esta es la pagina de administrador' """  
+
+@app.route('/save_spents', methods=['GET','POST'])
+def save_spents():
+    storagecost = request.form["storagecost"]
+    servicecost = request.form["servicecost"]
+    admincost = request.form["admincost"]
+    others = request.form["others"]
+    datetime = request.form["datetime"]
+
+    gastos = Gastos(storagecost, servicecost, admincost, others, datetime)
+    db.session.add(gastos)
+    db.session.commit()
+    return "Esta es la prueba"
+    # render_template("TablaGastos.html")
+
+
+#Rutas de metodos
+@app.route('/updatePasswordUser', methods=['POST'])
+def get_vencido():
+
+    request_data = request.form
+    email = request_data['email']
+    newPassword = request_data['newPassword']
+    changeUser = User.query.filter_by(email=email).first()
+    retorno = "Actualización exitosa" 
+
+    if changeUser==None:
+        #aqui se debe poner una alerta en el navegador que diga que el correo no existe
+        retorno = "Fallo de actualización, "  + email + " no existe en la base de datos."
+    else:
+        cp = User.query.filter_by(email="Ramon").first()
+        changeUser.password = newPassword
+        db.session.commit()
+    return retorno
 
 if __name__ == "__main__":
     app.run()

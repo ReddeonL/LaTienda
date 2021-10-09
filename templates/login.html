@@ -18,13 +18,14 @@
             text-align: center;
         }
         body {
-    background-color: rgb(22, 56, 68);
+        background-color: rgb(22, 56, 68);
         }
 
         .navegacion{
-            width: 1000px;
+            width: 800px;
             margin: 30px auto;
-            background: #fff;
+            background: none;
+            
         }
 
         .navegacion ul{
@@ -45,28 +46,45 @@
             text-decoration: none;
         }
 
-        .menu li a : hover{
-            color: #CE7D35;
-            transition: all .3s;
-        }
 
         .submenu{
             position: absolute;
-            background-color: rgb(0, 0, 0);
+            background-color:rgb(190, 223, 235);    
+            /* El width es el ancho de la caja */
             width: 100%; 
             display: none; 
         }
 
         .submenu li a{
             display: block;
+            /* El padding son los margenes internos de una caja */
             padding: 15px;
-            color: #fff;
+            color: rgb(22, 56, 68);
             font-family: 'Open sans';
             text-decoration: none;
+            
         }
 
         .menu li:hover .submenu{
             display: block;
+        }
+
+        /* Texto sobre la imagen */
+        .contenedor{
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        }
+        .texto-encima{
+            position: absolute;
+            top: 0px;
+            left: 10px;
+        }
+        .centrado{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
 
@@ -75,22 +93,65 @@
 </head>
 <body>
 
-    <header>
-        <nav class="navegacion">
-            <ul class="menu">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Clientes</a></li>
-                <li><a href="#">Servicios</a>
-                    <ul class="submenu">
-                        <li><a href="#">Ingresos</a></li>
-                        <li><a href="#">Gastos</a></li>
-                        <li><a href="#">Inventarios</a></li>
+    <header class="hero">
+        <!-- <div class="textos-hero">
+            <img src="695.jpg" alt="banner" width="100%" height="50%" />
+            <h1>Bienvenido a Tiendup</h1>
+            <p>Tu mejor aliado</p>
+            <a href="#contactanos">Contactanos</a>
+        </div> -->
+
+        <div class="contenedor">
+            <img src="abc.jpg" alt="banner" width="100%" height="50%">
+            <div class="texto-encima">
+
+                <nav class="navegacion">
+                    <ul class="menu">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="#">Servicios</a>
+                            <ul class="submenu">
+                                <li><a href="#">Ingresos</a></li>
+                                <li><a href="#">Gastos</a></li>
+                                <li><a href="#">Inventarios</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Clientes</a></li>
+                        <li><a href="#">Contacto</a></li>
                     </ul>
-                </li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
+                </nav>
+
+            </div>
+            <!-- <div class="centrado">Centrado</div> -->
+          </div>
+
+
+
+        <!-- Ola divisoria -->
+        <!-- <div style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-1.41,46.88 C241.82,180.11 400.39,-105.08 500.00,49.98 L500.00,150.00 L-5.36,154.45 Z" style="stroke: none; fill: #08f;"></path></svg></div> -->
+
+        
+
+    </header>
+
+    
+
+    <section class="wave contenedor website">
+        
+        <div class="contenedor-textos-main">
+            <h2 class="titulo left">Titulo de seccion</h2>
+            <p class="parrafo">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque sed culpa laudantium itaque ab dolores voluptate dolorem reiciendis recusandae veritatis voluptates asperiores saepe perspiciatis vel aliquam ea voluptatibus, porro eaque!</p>
+            
+
+        </div>
+
+    </section>
+    <header> 
+
+
+
+
+        
 
     <h1 class="center">La tienda</h1>
     <h2 class="center">inicio de sesion</h2>
