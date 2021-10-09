@@ -121,45 +121,18 @@ def create_product():
 
 
 @app.route('/delete_product', methods=["GET",'POST'])
-def verify_product():
-    
-    name=request.form["name"]
-    productdb=Product.query.filter(Product.name==name)
+def del_product():
+    idp=request.form["id"]
+    productdb=Product.query.filter(idp==idp)
     db.session.delete(productdb)
     db.session.commit()
-    return redirect("inventario")
+    return redirect("home")
     
-
-"""@app.route('/delete_product',methods=['GET','POST'])
-def delete_product():
-    named = request.form["name"]
-    productname=Product.query.filter(Product.name==named)
-    
-
-    db.session.delete()
-    db.session.commit()"""
-
-
-"""
-En la función, por ejemplo:
-@app.route("/mostrar_datos")
-def mostrarDatos():
-    consulta = db.session.query(Product).all()
-    return render_template("inventario.html",datos = consulta)
-"""
-
 
 #para traer info de la base de datos
-"""@app.route('/dbusers', methods=['GET'])
-def create_user():
-    names=User.query.all() 
-    for r in names:
-        print(r.email)"""
 
 
 """
-
-
 @app.route('/estadisticos')
 def estadisticos():
     return 'Esta es la pagina de estadisticos y resumen de datos'
