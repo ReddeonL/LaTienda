@@ -1,6 +1,7 @@
 from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
+
 app = Flask(__name__)
 # 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/tiendadb'
@@ -11,57 +12,130 @@ app.secret_key = 'some-secret-key'
 db = SQLAlchemy(app)
 
 # Importar los modelos
-<<<<<<< HEAD
-from models import Product, User, Admin, Lote, Sold, Factura
-=======
+
 from models import Product, User, Admin, Lote, Sold, Factura, Gastos
->>>>>>> develop
+
 
 # Crear el esquema de la DB
-db.create_all()  #aca me menciona el error
+db.create_all()  
 db.session.commit()
 
 
 # Rutas de paginas
 @app.route('/')
+def inicio():
+    return redirect('login')
+@app.route('/login')
+def get_login():
+    return render_template("login.html")
+@app.route('/home')
 def get_home():
+    return render_template("home.html")
+#paginas de login a singup
+@app.route('/signup')
+def get_signup():
     return render_template("signup.html")
+@app.route('/forgetpass')
+def get_forget():
+    return render_template("forgetpass.html")
+#paginas enlaces del home     
+@app.route('/gastos')
+def get_gastos():
+    return render_template("gastos.html")
+@app.route('/factura')
+def get_factura():
+    return render_template("factura.html")
+@app.route('/ventas')
+def get_ventas():
+    return render_template("ventas.html")
+@app.route('/inventario')
+def inventario():
+    return render_template("inventario.html")
+@app.route('/resproducto')
+def resproducto():
+    return render_template("registroproducto.html")
+@app.route('/homeadmin')
+def homeadmin():
+    return render_template("homeadmin.html")
 
-@app.route('/create-user', methods=['POST'])
+#funciones
+
+#verificacion en login
+@app.route('/verify_user', methods=["GET",'POST'])
+def verify_user():
+    
+    email=request.form["email"]
+    password=request.form["password"]
+
+    userdb=User.query.filter(User.password==password,User.email==email)
+    try:
+        if(userdb[0] is not None):
+            return redirect("home")
+    except:
+        return redirect("login")
+#verificacion login para el admin
+@app.route('/loginadmin', methods=["GET",'POST'])
+def verify_admin():
+    
+    email=request.form["email"]
+    password=request.form["password"]
+
+    admindb=Admin.query.filter(Admin.password==password,Admin.email==email)
+    try:
+        if(admindb[0] is not None):
+            return redirect("homeadmin")
+    except:
+        return redirect("loginadmin")
+
+#ccrear usuario
+@app.route('/create_user', methods=["GET",'POST'])
 def create_user():
     email = request.form["email"]
     password = request.form["password"]
-
     user = User(email, password)
     db.session.add(user)
     db.session.commit()
-    return render_template("login.html")
-@app.route('/verify_user',methods=['POST'])
-def verify_user():
-    request_info=request.form
-    email=request_info["Email"]
-    password=request_info["Contraseña"]
-    user=User.query.filter(User.password==password,User.email==email)
-    try:
-        if(user[0] is not None):
-            return render_template("home.html")
-    except:
-        return render_template("login.html")
+    
+    return redirect("login")
 
-@app.route('/create_product', methods=['POST'])
+@app.route('/create_product', methods=['GET','POST'])
 def create_product():
     name = request.form["name"]
     description = request.form["description"]
     pricebuy = request.form["price_buying"]
     category = request.form["category"]
+   # lote=request.form["lote"]
     price_sale= request.form["price_sale"]
     amount = request.form["amount"]
 
     producto = Product(name, description,pricebuy,category,price_sale,amount)
     db.session.add(producto)
     db.session.commit()
+    return redirect("inventario")
 
-    return "registro exitoso"
+@app.route("/mostrar_datos")
+def mostrarDatos():
+    consulta = db.session.query(Product).all()
+    return render_template("inventario.html",datos = consulta)
+
+"""@app.route('/delete_product',methods=['GET','POST'])
+def delete_product():
+    named = request.form["name"]
+    productname=Product.query.filter(Product.name==named)
+    
+
+    db.session.delete()
+    db.session.commit()"""
+
+
+"""
+En la función, por ejemplo:
+@app.route("/mostrar_datos")
+def mostrarDatos():
+    consulta = db.session.query(Product).all()
+    return render_template("inventario.html",datos = consulta)
+"""
+
 
 #para traer info de la base de datos
 """@app.route('/dbusers', methods=['GET'])
@@ -73,17 +147,6 @@ def create_user():
 
 """
 
-@app.route('/gastos')
-def gastos_room():
-    return render_template("gastos.html")
-
-@app.route('/inventario')
-def inventario():
-    return render_template("inventario.html")
-
-@app.route('/factura')
-def factura():
-    return render_template("factura.html")
 
 @app.route('/estadisticos')
 def estadisticos():
@@ -113,13 +176,6 @@ def sign_up():
     return 'Esta es una pagina de prueba'
 
 
-
-
-if __name__ == "__main__":
-    app.run()
-
-
-
 #Rutas de metodos
 @app.route('/updatePasswordUser', methods=['POST'])
 def get_vencido():
@@ -139,3 +195,5 @@ def get_vencido():
         db.session.commit()
     return retorno
 
+if __name__ == "__main__":
+    app.run()
