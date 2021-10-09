@@ -120,10 +120,11 @@ def create_product():
 #@app.route("/mostrar_datos", methods=["GET",'POST'])
 
 
-@app.route('/delete_product', methods=["GET",'POST'])
+@app.route('/deleteproduct', methods=["GET",'POST'])
 def del_product():
-    idp=request.form["id"]
-    productdb=Product.query.filter(idp==idp)
+    requestdata=request.form
+    name=requestdata["name"]
+    productdb=Product.query.filter(name==name)
     db.session.delete(productdb)
     db.session.commit()
     return redirect("home")
