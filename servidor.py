@@ -51,7 +51,10 @@ def get_ventas():
     return render_template("ventas.html")
 @app.route('/inventario')
 def inventario():
-    return render_template("inventario.html")
+    consulta = db.session.query(Product).all()
+    print(consulta)
+    return render_template("inventario.html",datos = consulta)    
+
 @app.route('/resproducto')
 def resproducto():
     return render_template("registroproducto.html")
@@ -114,10 +117,8 @@ def create_product():
     db.session.commit()
     return redirect("inventario")
 
-@app.route("/mostrar_datos", methods=["GET",'POST'])
-def mostrarDatos():
-    consulta = db.session.query(Product).all()
-    return render_template("inventario.html",datos = consulta)
+#@app.route("/mostrar_datos", methods=["GET",'POST'])
+
 
 @app.route('/delete_product', methods=["GET",'POST'])
 def verify_product():
@@ -202,4 +203,4 @@ def get_vencido():
     return retorno
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
