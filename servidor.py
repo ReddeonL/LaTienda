@@ -1,5 +1,6 @@
 from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import date, datetime
 
 
 app = Flask(__name__)
@@ -156,15 +157,15 @@ def estadisticos():
 def administrador():
     return 'Esta es la pagina de administrador' """  
 
-@app.route('/save-spents', methods=['GET','POST'])
+@app.route('/save_spents', methods=['GET','POST'])
 def save_spents():
     storagecost = request.form["storagecost"]
     servicecost = request.form["servicecost"]
     admincost = request.form["admincost"]
     others = request.form["others"]
-    date = request.form["date"]
+    datetime = request.form["datetime"]
 
-    gastos = Gastos(storagecost, servicecost, admincost, others, date)
+    gastos = Gastos(storagecost, servicecost, admincost, others, datetime)
     db.session.add(gastos)
     db.session.commit()
     return "Esta es la prueba"

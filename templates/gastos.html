@@ -20,7 +20,7 @@
 <body>
     <h1 class="center">Inventario</h1>
     <div class="center">
-    <form action="{{url_for('save-spents')}}"method="post">
+    <form action="{{url_for('save_spents')}}"method="post">
         <div>
             <input type="number" storagecost="storagecost" placeholder="Costo de almacenamiento">
         </div>
@@ -36,7 +36,7 @@
         </div>
         
         <div>
-            <input type="datetime" date="date" placeholder="Fecha actualizacion">
+            <input type="text" date="datetime" placeholder="AAAA-MM-DD">
         </div>
 
         <div>

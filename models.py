@@ -91,11 +91,11 @@ class Gastos(db.Model):
     storagecost=db.Column(db.Float)
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
-    others=db.column(db.Float)
-    datetime=db.column(db.Datetime)
-    def  __init__(self,storagecost,servicecost,admincost, others, date):
+    others=db.Column(db.Float)
+    datetime=db.Column(db.String)
+    def  __init__(self,storagecost,servicecost,admincost, others, datetime):
         self.storagecost=storagecost
         self.servicecost=servicecost
         self.admincost=admincost
         self.others=others
-        self.date = date
+        self.datetime = datetime
