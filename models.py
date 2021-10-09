@@ -10,9 +10,8 @@ class Product(db.Model):
     description = db.Column(db.String)
     price_buying = db.Column(db.Float)
     category = db.Column(db.String)
-    #lote = db.Column(db.ForeignKey("Lote.due_date"))
+    lote = db.Column(db.ForeignKey("Lote.id_lote"))
     price_sale = db.Column(db.Float)
-    amount = db.Column(db.String)
 
     def __init__(self, name, description, price_buying, category, price_sale,amount):
         
@@ -47,38 +46,39 @@ class Admin(db.Model):
 class Lote(db.Model):
     __tablename__='Lote'
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    due_date =db.Column(db.DateTime)
-    #amount = db.Column(db.ForeignKey("Product.amount"))
+    due_date =db.Column(db.Date)
+    amount = db.Column(db.Integer)
     def __init__(self,due_date,amount):
 
         self.due_date=due_date
         self.amount=amount
+
+
 class Sold(db.Model):
     __tablename__='Venta'
 
     id_venta=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    sold_date=db.Column(db.DateTime)
-    #id_product=db.Column(db.ForeignKey("Product.id"))
+    id_product=db.Column(db.ForeignKey("Product.id"))
     discount=db.Column(db.Float)
-    #id_factura=db.Column(db.ForeignKey("Factura.id_factura"))
+    id_factura=db.Column(db.ForeignKey("Factura.id_factura"))
     amount_sold=db.Column(db.Integer)
     def __init__(self,sold_date,discount,amount_sold):
         self.sold_date=sold_date
         self.discount=discount
         self.amount_sold=amount_sold
+
 class Factura(db.Model):
     __tablename__='Factura'
     id_factura=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    #id_product=db.Column(db.ForeignKey("Product.id"))
-    #precio_venta=db.Column(db.ForeignKey("Product.price_sale"))
+    precio_venta=db.Column(db.Float)
     taxes=db.Column(db.Float)
     total=db.Column(db.Float)
-    #amount_sold=db.Column(db.ForeignKey("Sold.amount_sold"))
-    #discount=db.Column(db.ForeignKey("Sold.discount"))
-    #fecha_venta=db.Column(db.ForeignKey("Sold.sold_date"))
-    def __init__(self,taxes,total):
+    fecha_venta=db.Column(db.Date)
+    def __init__(self, precio_venta, taxes, fecha_venta):
+        self.precio_venta = precio_venta
         self.taxes=taxes
-        self.total=total
+        total=precio_venta + taxes
+        self.fecha_venta = fecha_venta
 
 
 class Gastos(db.Model):
