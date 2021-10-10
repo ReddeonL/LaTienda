@@ -3,7 +3,6 @@ from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
 
-
 app = Flask(__name__)
 # 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/tiendadb'
@@ -147,10 +146,7 @@ def del_product():
 @app.route('/estadisticos')
 def estadisticos():
     return 'Esta es la pagina de estadisticos y resumen de datos'
-
-@app.route('/administrador')
-def administrador():
-    return 'Esta es la pagina de administrador' """  
+ """  
 
 @app.route('/save_spents', methods=['GET','POST'])
 def save_spents():
