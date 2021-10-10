@@ -50,12 +50,14 @@ class Admin(db.Model):
 class Lote(db.Model):
     __tablename__='lote'
     id_lote = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    due_date =db.Column(db.ForeignKey("products.lote"))
-    amount = db.Column(db.ForeignKey("products.amount"))
+    due_date =db.Column(db.Date)
+    amount = db.Column(db.Integer)
     def __init__(self,due_date,amount):
 
         self.due_date=due_date
         self.amount=amount
+
+
 class Sold(db.Model):
     __tablename__='venta'
 
@@ -69,25 +71,26 @@ class Sold(db.Model):
         self.sold_date=sold_date
         self.discount=discount
         self.amount_sold=amount_sold
+
 class Factura(db.Model):
     __tablename__='factura'
     id_factura=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id_product=db.Column(db.ForeignKey("products.id"))
-    precio_venta=db.Column(db.ForeignKey("products.price_sale"))
+    precio_venta=db.Column(db.Float)
     taxes=db.Column(db.Float)
     total=db.Column(db.Float)
-    amount_sold=db.Column(db.ForeignKey("sold.amount_sold"))
-    discount=db.Column(db.ForeignKey("sold.discount"))
-    fecha_venta=db.Column(db.ForeignKey("sold.sold_date"))
-    def __init__(self,taxes,total):
+    fecha_venta=db.Column(db.Date)
+    def __init__(self, precio_venta, taxes, fecha_venta):
+        self.precio_venta = precio_venta
         self.taxes=taxes
-        self.total=total
+        total=precio_venta + taxes
+        self.fecha_venta = fecha_venta
+
 
 class Gastos(db.Model):
     __tablename__='gastos'
     id_gasto=db.Column(db.Integer, primary_key=True,autoincrement=True)
-    price_buy=db.Column(db.ForeignKey("product.price_buying"))
-    amount=db.Column(db.ForeignKey("product.amount"))
+    price_buy=db.Column(db.ForeignKey("products.price_buying"))
+    amount=db.Column(db.ForeignKey("products.amount"))
     storagecost=db.Column(db.Float)
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
