@@ -261,9 +261,7 @@ def get_facturar():
         
         return render_template("facturar.html", factura=factura, ventas=ventas, producto=producto)
 """ 
-@app.route('/')
-def get_facturas():
-    return "entro"
+
 
 
 if __name__ == "__main__":
