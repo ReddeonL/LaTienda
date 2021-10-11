@@ -39,12 +39,10 @@ class User(db.Model):
 
 class Admin(db.Model):
     __tablename__ = 'admin'
-
-    id_admin = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email_admin = db.Column(db.String, unique=True)
+    id_admin = db.Column(db.String, unique=True, primary_key=True)
     password_admin = db.Column(db.String)
-    def __init__(self,email_admin,password_admin):
-        self.email_admin=email_admin
+    def __init__(self,id_admin,password_admin):
+        self.id_admin=id_admin
         self.password_admin=password_admin
         
 class Lote(db.Model):
@@ -62,13 +60,18 @@ class Sold(db.Model):
     __tablename__='venta'
 
     id_venta=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    sold_date=db.Column(db.DateTime)
-    id_product=db.Column(db.ForeignKey("products.id"))
+    id_product=db.Column(db.Integer)
     discount=db.Column(db.Float)
-    #id_factura=db.Column(db.ForeignKey("factura.id_factura"))
+    id_factura=db.Column(db.ForeignKey("factura.id_factura"))
     amount_sold=db.Column(db.Integer)
-    def __init__(self,sold_date,discount,amount_sold):
-        self.sold_date=sold_date
+    def __init__(self,discount,amount_sold, producto, fecha):
+        product=Product.query.filter_by(id=producto).first()
+        self.id_product=producto
+        sudtotal=product.price_sale*int(amount_sold)
+        factura = Factura(sudtotal, fecha, 0.19, 1.19*sudtotal)
+        db.session.add(factura)
+        db.session.commit()
+        self.id_factura=factura.id_factura
         self.discount=discount
         self.amount_sold=amount_sold
 
@@ -79,26 +82,28 @@ class Factura(db.Model):
     taxes=db.Column(db.Float)
     total=db.Column(db.Float)
     fecha_venta=db.Column(db.Date)
-    def __init__(self, precio_venta, taxes, fecha_venta):
+    def __init__(self, precio_venta, fecha_venta, taxes, total):
         self.precio_venta = precio_venta
         self.taxes=taxes
-        total=precio_venta + taxes
+        self.total=total
         self.fecha_venta = fecha_venta
 
 
 class Gastos(db.Model):
     __tablename__='gastos'
     id_gasto=db.Column(db.Integer, primary_key=True,autoincrement=True)
-    price_buy=db.Column(db.ForeignKey("products.price_buying"))
-    amount=db.Column(db.ForeignKey("products.amount"))
+    price_buy=db.Column(db.Float)
+    amount=db.Column(db.Integer)
     storagecost=db.Column(db.Float)
     servicecost=db.Column(db.Float)
     admincost=db.Column(db.Float)
     others=db.Column(db.Float)
     datetime=db.Column(db.Date)
-    def  __init__(self,storagecost,servicecost,admincost, others, datetime):
+    def  __init__(self,storagecost,servicecost,admincost, others, datetime,price_buy,amount):
         self.storagecost=storagecost
         self.servicecost=servicecost
         self.admincost=admincost
         self.others=others
         self.datetime = datetime
+        self.price_buy=price_buy
+        self.amount=amount
