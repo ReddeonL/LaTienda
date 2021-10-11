@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 
 from models import Product, User, Admin, Lote, Sold, Factura, Gastos
 
-
+"""
 # Crear el esquema de la DB
 db.create_all()  
 db.session.commit()
@@ -140,7 +140,7 @@ def create_user():
     db.session.add(user)
     db.session.commit()
     return redirect("login")
-"""
+
 @app.route('/create_product', methods=['GET','POST'])
 def create_product():
     if request.form["name"]=="":
