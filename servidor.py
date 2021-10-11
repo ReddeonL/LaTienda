@@ -188,11 +188,7 @@ def del_product():
     db.session.commit()
     return redirect("inventario")
 
-"""
-@app.route('/estadisticos')
-def estadisticos():
-    return 'Esta es la pagina de estadisticos y resumen de datos'
- """  
+
 
 @app.route('/save_spents', methods=['POST'])
 def save_spents():
