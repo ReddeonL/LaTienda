@@ -263,5 +263,5 @@ def get_facturar():
         
         return render_template("facturar.html", factura=factura, ventas=ventas, producto=producto)
  
-if __name__ == "__main__":
-    app.run()#debug=True)
+"""if __name__ == "__main__":
+    app.run()#debug=True)"""
