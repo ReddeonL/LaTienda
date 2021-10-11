@@ -13,7 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'some-secret-key'
 
 db = SQLAlchemy(app)
-"""
+
 # Importar los modelos
 
 from models import Product, User, Admin, Lote, Sold, Factura, Gastos
@@ -140,7 +140,7 @@ def create_user():
     db.session.add(user)
     db.session.commit()
     return redirect("login")
-
+"""
 @app.route('/create_product', methods=['GET','POST'])
 def create_product():
     if request.form["name"]=="":
