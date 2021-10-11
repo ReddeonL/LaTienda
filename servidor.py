@@ -21,6 +21,9 @@ from models import Product, User, Admin, Lote, Sold, Factura, Gastos
 @app.route('/')
 def inicio():
     return redirect('login')
+@app.route('/login')
+def get_login():
+    return render_template("login.html")
 """
 # Crear el esquema de la DB
 db.create_all()  
