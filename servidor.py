@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
 
 app = Flask(__name__)
+PORT=5000
+DEBUG=False
 # 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/tiendadb'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://cpdxxdhbrovthw:25d3ec47451f8e836675f3227c1713ee6ad8a0319f81895a5f666d4363029d46@ec2-52-207-47-210.compute-1.amazonaws.com:5432/d80ef8qqjqdhd0'
@@ -263,5 +265,5 @@ def get_facturar():
         
         return render_template("facturar.html", factura=factura, ventas=ventas, producto=producto)
  
-"""if __name__ == "__main__":
-    app.run()#debug=True)"""
+if __name__ == "__main__":
+    app.run(port=PORT,debug=DEBUG)
