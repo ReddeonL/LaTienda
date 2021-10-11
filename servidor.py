@@ -18,6 +18,9 @@ db = SQLAlchemy(app)
 
 from models import Product, User, Admin, Lote, Sold, Factura, Gastos
 
+@app.route('/')
+def inicio():
+    return redirect('login')
 """
 # Crear el esquema de la DB
 db.create_all()  
