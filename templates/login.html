@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .center {
+            text-align: center;
+        }
+        body {
+            background-color: lightblue;
+        }
+
+        .navegacion{
+            width: 800px;
+            margin: 30px auto;
+            background: none;
+            
+        }
+
+        .navegacion ul{
+            list-style: none;
+        }
+
+        .menu > li{
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Menu horizontal */
+        .menu > li > a {
+            display: block;
+            padding: 15px 20px;
+            color: #353535;
+            font-family: 'Open sans';
+            text-decoration: none;
+        }
+
+
+        .submenu{
+            position: absolute;
+            background-color:rgb(190, 223, 235);    
+            /* El width es el ancho de la caja */
+            width: 100%; 
+            display: none; 
+        }
+
+        .submenu li a{
+            display: block;
+            /* El padding son los margenes internos de una caja */
+            padding: 15px;
+            color: rgb(22, 56, 68);
+            font-family: 'Open sans';
+            text-decoration: none;
+            
+        }
+
+        .menu li:hover .submenu{
+            display: block;
+        }
+
+        /* Texto sobre la imagen */
+        .contenedor{
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        }
+        .texto-encima{
+            position: absolute;
+            top: 0px;
+            left: 10px;
+        }
+        .centrado{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    
+
+
+    <header> 
+
+    <h1 class="center">La tienda</h1>
+    </br>
+    </br>
+    </br>
+    <h2 class="center">Inicio de sesion</h2>
+</br>
+    <p class="center">Correo: pepito@gmail.com pass: 1111</p>
+    <p class="center">Si no funciona registrese.</p>
+    <form action="{{url_for('verify_user')}}"method="POST">
+    <div class="center">
+        <input type="email" name="email" placeholder="Your email">
+    </div>
+    <div class="center">
+        <input type="password" name="password" placeholder="Your password">
+    </div>
+    <div class="center">
+        <button>Ingreso</button>
+    </div>
+    </form>
+    
+    <br>
+    <div class="center">
+        <a href="/forgetpass">¿Olvido su contraseña?</a>
+        <a href="/signup">Registrese</a>
+        <a href="/admin">Modo administrador</a>
+
+
+    </div>
+    
+    </header>
+</br>
+</br>
+</br>
+</br>
+</br>
+<center>
+    <section class="wave contenedor website">
+        
+        <div class="contenedor-textos-main" class="center">
+            <p class="parrafo">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+        </br> <p>Doloremque sed culpa laudantium itaque ab dolores voluptate dolorem reiciendis</p>
+        </br> <p>recusandae veritatis voluptates asperiores saepe perspiciatis vel aliquam ea voluptatibus, porro eaque!</p>
+            
+
+        </div>
+
+    </section>
+</center>
+
+</body>
+</html>
