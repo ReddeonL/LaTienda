@@ -16,8 +16,21 @@
     </style>
 </head>
 <body>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages  %}
+           {% for message in messages  %}
+                <div class="alert alert-success">{{messages}}</div>
+            {% endfor  %}
+        {% endif %}
+    {% endwith %}
+
+
     <h1 class="center">La tienda</h1>
-    <h2 class="center">olvido su contraseña</h2>
+</br>
+</br>
+</br>
+    <h3 class="center">Restablesca su contraseña</h3>
     <form action="{{url_for('get_vencido')}}"method="post">
     <div class="center">
         <input type="email" name="email" placeholder="ingrese su email">
@@ -27,9 +40,17 @@
     </div>
     
     <div class="center">
-        <button>ingreso</button>
+        <button>Actualizar</button>
     </div>
     </form>
+
+</br>
+
+<div class="center">
+    <a href="/login">Regresar</a>
+
+
+</div>
     
 </body>
 </html>
